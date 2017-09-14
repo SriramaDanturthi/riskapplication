@@ -1,0 +1,7 @@
+<p-dataTable [value]="tacReviews" sortField="division" groupfield="type" rowGroupMode="subheader" [style]="{'margin-top':'50px'}">
+  <p-header>Tac Review</p-header>
+  <ng-template pTemplate="rowgroupheader" let-row Data>{{rowData}}</ng-template>
+  <p-column field="count" header="Division" sortable="true"></p-column>
+  <p-column field="superDept" header="SuperDept" sortable="true"></p-column>
+  <p-column field="department" header="Department" sortable="true"></p-column>
+</p-dataTable>
