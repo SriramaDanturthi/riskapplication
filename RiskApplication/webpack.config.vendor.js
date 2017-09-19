@@ -17,8 +17,7 @@ const treeShakableModules = [
 const nonTreeShakableModules = [
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
-    'primeng/resources/primeng.css',
-    'primeng/resources/themes/omega/theme.css',
+    '@progress/kendo-theme-default/dist/all.css',
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',

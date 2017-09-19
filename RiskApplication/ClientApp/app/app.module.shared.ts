@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { DataTableModule,SharedModule } from 'primeng/primeng';
+import { GridModule } from '@progress/kendo-angular-grid';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -25,7 +25,7 @@ import { TacReviewComponent } from './components/tac-review/tac-review.component
         CommonModule,
         HttpModule,
         FormsModule,
-        DataTableModule,
+        GridModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

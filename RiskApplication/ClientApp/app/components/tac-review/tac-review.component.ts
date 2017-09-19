@@ -1,20 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { AuditReportSummary } from './reviewSummary';
+import { IdType } from './IdType';
 @Component({
-  selector: 'app-tac-review',
-  templateUrl: './tac-review.component.html',
-  styleUrls: ['./tac-review.component.css']
+    selector: 'app-tac-review',
+    templateUrl: './tac-review.component.html',
+    styleUrls: ['./tac-review.component.css']
 })
 export class TacReviewComponent implements OnInit {
-    public tacReviews: TacReview[];
+    public auditReportSummary: AuditReportSummary[];
     constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
-        http.get(baseUrl + 'api/riskapplication/tacreviewdetails').subscribe(result => {
-            this.tacReviews = result.json().auditIssues as TacReview[];
+        http.get(baseUrl + 'api/riskapplication/GetAuditReportSummary').subscribe(result => {
+            this.auditReportSummary = result.json() as AuditReportSummary[];
         }, error => console.error(error));
     }
     ngOnInit() {
     }
-
 }
 
 interface TacReview {

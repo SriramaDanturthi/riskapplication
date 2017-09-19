@@ -1,7 +1,33 @@
-<p-dataTable [value]="tacReviews" sortField="division" groupfield="type" rowGroupMode="subheader" [style]="{'margin-top':'50px'}">
-  <p-header>Tac Review</p-header>
-  <ng-template pTemplate="rowgroupheader" let-row Data>{{rowData}}</ng-template>
-  <p-column field="count" header="Division" sortable="true"></p-column>
-  <p-column field="superDept" header="SuperDept" sortable="true"></p-column>
-  <p-column field="department" header="Department" sortable="true"></p-column>
-</p-dataTable>
+
+<!--<p-dataTable [value]="auditReportSummary" sortField="type" [style]="{'margin-top':'50px'}" tableStyleClass="table">
+    <p-column field="type"></p-column>
+    <p-column field="expired" header="Expired" sortable="true" >
+        <ng-template let-col let-car="rowData" pTemplate="body" >
+            <span style="background-color:red">{{car[col.field]}}</span>
+        </ng-template>
+    </p-column>
+    <p-column field="noDataSet" header="NoDataSet" [style]="{'background':'orange'}"></p-column>
+    <p-column field="pendingin7Days" header="Pendingin7Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+    <p-column field="pendingin30Days" header="Pendingin30Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+    <p-column field="pendingin60Days" header="Pendingin60Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+    <p-column field="pendingin90Days" header="Pendingin90Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+    <p-column field="pendingin120Days" header="Pendingin120Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+    <p-column field="pendingin150Days" header="Pendingin150Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+    <p-column field="pendingin180Days" header="Pendingin180Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+    <p-column field="pendinginMoreThan180Days" header="PendinginMoreThan180Days" sortable="true" [style]="{'background':'limegreen'}"></p-column>
+</p-dataTable>-->
+
+<kendo-grid [data]="auditReportSummary">
+    <kendo-grid-column field="type" title="" width="40">
+    </kendo-grid-column>
+    <kendo-grid-column field="expired" title="Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="noDataSet" title="Category">
+    </kendo-grid-column>
+    <kendo-grid-column field="pendingin7Days" title="Price" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="pendingin30Days" title="In stock" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="pendingin60Days" title="Discontinued" width="120">
+    </kendo-grid-column>
+</kendo-grid>
