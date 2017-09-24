@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { AuditReportSummary } from './reviewSummary';
@@ -9,12 +10,27 @@ import { IdType } from './IdType';
 })
 export class TacReviewComponent implements OnInit {
     public auditReportSummary: AuditReportSummary[];
-    constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
+    constructor(http: Http, @Inject('BASE_URL') baseUrl: string, private sanitizer: DomSanitizer) {
         http.get(baseUrl + 'api/riskapplication/GetAuditReportSummary').subscribe(result => {
             this.auditReportSummary = result.json() as AuditReportSummary[];
         }, error => console.error(error));
     }
     ngOnInit() {
+    }
+    public colorCode(code: TacReview) {
+        let result= "red";
+        //switch (code) {
+        //    case "C1":
+        //        result = "red";
+        //        break;
+        //    case "C2":
+        //        result = "orange";
+        //        break;
+        //    default:
+        //        result = "light-green";
+        //        break;
+        //}
+        return this.sanitizer.bypassSecurityTrustStyle(result);
     }
 }
 

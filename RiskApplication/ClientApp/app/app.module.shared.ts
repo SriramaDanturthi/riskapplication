@@ -7,18 +7,12 @@ import { GridModule } from '@progress/kendo-angular-grid';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
 import { TacReviewComponent } from './components/tac-review/tac-review.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        HomeComponent,
         TacReviewComponent
     ],
     imports: [
@@ -27,12 +21,9 @@ import { TacReviewComponent } from './components/tac-review/tac-review.component
         FormsModule,
         GridModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: '', redirectTo: 'tac-review', pathMatch: 'full' },
             { path: 'tac-review', component: TacReviewComponent },
-            { path: '**', redirectTo: 'home' }
+            { path: '**', redirectTo: 'tac-review' }
         ])
     ]
 })
