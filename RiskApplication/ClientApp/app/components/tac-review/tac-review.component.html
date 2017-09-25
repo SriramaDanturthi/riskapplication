@@ -1,24 +1,27 @@
 <kendo-grid [data]="auditReportSummary">
     <kendo-grid-column field="type" title="">
     </kendo-grid-column>
-    <kendo-grid-column field="expired" title="Expired" [style]="{'background-color': 'red','color': '#fff'}">
+    <kendo-grid-column field="expired" title="Expired" [style]="{'background-color': 'red','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="noDataSet" title="No Data Set">
+    <kendo-grid-column field="noDataSet" title="No Data Set" [style]="{'background-color': 'orange','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendingin7Days" title="Pend/Expire 7 Days" [class]="{'verticalText':true}">
+    <kendo-grid-column field="pendingin7Days" title="Pend/Expire 7 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendingin30Days" title="Pend/Expire 30 Days">
+    <kendo-grid-column field="pendingin30Days" title="Pend/Expire 30 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendingin60Days" title="Pend/Expire 60 Days">
+    <kendo-grid-column field="pendingin60Days" title="Pend/Expire 60 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendingin90Days" title="Pend/Expire 90 Days">
+    <kendo-grid-column field="pendingin90Days" title="Pend/Expire 90 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendingin120Days" title="Pend/Expire 120 Days">
+    <kendo-grid-column field="pendingin120Days" title="Pend/Expire 120 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendingin150Days" title="Pend/Expire 150 Days">
+    <kendo-grid-column field="pendingin150Days" title="Pend/Expire 150 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendingin180Days" title="Pend/Expire 180 Days">
+    <kendo-grid-column field="pendingin180Days" title="Pend/Expire 180 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
-    <kendo-grid-column field="pendinginMoreThan180Days" title="Pend/Expire >180 Days">
+    <kendo-grid-column field="pendinginMoreThan180Days" title="Pend/Expire >180 Days" [style]="{'background-color': 'lightgreen','color': '#000'}">
     </kendo-grid-column>
+    <div *kendoGridDetailTemplate="let dataItem">
+        <app-tac-review-list [list]="dataItem.reviewList"></app-tac-review-list>
+    </div>
 </kendo-grid>

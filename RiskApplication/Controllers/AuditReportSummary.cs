@@ -1,4 +1,6 @@
-﻿namespace RiskApplication.Controllers
+﻿using System.Collections.Generic;
+
+namespace RiskApplication.Controllers
 {
     public partial class RiskApplicationController
     {
@@ -15,6 +17,7 @@
             public int Pendingin150Days { get; set; }
             public int Pendingin180Days { get; set; }
             public int PendinginMoreThan180Days { get; set; }
+            public IEnumerable<TacReview> ReviewList { set; get; }
         }
     }
 }

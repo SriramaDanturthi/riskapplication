@@ -25,7 +25,7 @@ namespace RiskApplication.Controllers
         {
             var data = System.IO.File.ReadAllText("Data/tac-review.json");
             var reviews = JsonConvert.DeserializeObject<TacReview[]>(data);
-            return new List<AuditReportSummary>() {
+            var list = new List<AuditReportSummary>() {
                 GetAuditReportSummary(reviews,"Audit Issue ",IdType.AuditIssues),
                 GetAuditReportSummaryWithRatings(reviews,"Issue ",  IdType.CriticalHighIssues,new []{ "Critical","High" }),
                 GetAuditReportSummaryWithRatings(reviews,"Issue ",  IdType.ModerateLowIssues,new []{ "Low","Moderate","" }),
@@ -36,6 +36,7 @@ namespace RiskApplication.Controllers
                 GetExpiredRiskMetrics(reviews,"Risk ",IdType.ModerateRisks,"Moderate"),
                 GetExpiredRiskMetrics(reviews,"Risk ",IdType.LowRisks,"Low")
             };
+            return list;
         }
 
         private AuditReportSummary GetAuditReportSummaryExpiring(IEnumerable<TacReview> tacReviews, string prefix, IdType idType) => new AuditReportSummary
@@ -48,7 +49,8 @@ namespace RiskApplication.Controllers
             Pendingin120Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 120 days"),
             Pendingin150Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 150 days"),
             Pendingin180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 180 days"),
-            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days")
+            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days"),
+            ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
         };
 
         private AuditReportSummary GetAuditReportSummaryWithRatingsExpiring(IEnumerable<TacReview> tacReviews, string prefix, IdType idType, IEnumerable<string> ratings) => new AuditReportSummary
@@ -61,7 +63,8 @@ namespace RiskApplication.Controllers
             Pendingin120Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 120 days" && ratings.Contains(t.Rating)),
             Pendingin150Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 150 days" && ratings.Contains(t.Rating)),
             Pendingin180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 180 days" && ratings.Contains(t.Rating)),
-            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && ratings.Contains(t.Rating))
+            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && ratings.Contains(t.Rating)),
+            ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
         };
         private AuditReportSummary GetAuditReportSummaryWithRatingExpiring(IEnumerable<TacReview> tacReviews, string prefix, IdType idType, string rating) => new AuditReportSummary
         {
@@ -73,7 +76,8 @@ namespace RiskApplication.Controllers
             Pendingin120Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 120 days" && t.Rating == rating),
             Pendingin150Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 150 days" && t.Rating == rating),
             Pendingin180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 180 days" && t.Rating == rating),
-            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && t.Rating == rating)
+            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && t.Rating == rating),
+            ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
         };
 
         private AuditReportSummary GetAuditReportSummary(IEnumerable<TacReview> tacReviews, string prefix, IdType idType) => new AuditReportSummary
@@ -88,7 +92,8 @@ namespace RiskApplication.Controllers
             Pendingin120Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 120 days"),
             Pendingin150Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 150 days"),
             Pendingin180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 180 days"),
-            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days")
+            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days"),
+            ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
         };
         private AuditReportSummary GetAuditReportSummaryWithRatings(IEnumerable<TacReview> tacReviews, string prefix, IdType idType, IEnumerable<string> ratings) => new AuditReportSummary
         {
@@ -102,7 +107,8 @@ namespace RiskApplication.Controllers
             Pendingin120Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 120 days" && ratings.Contains(t.Rating)),
             Pendingin150Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 150 days" && ratings.Contains(t.Rating)),
             Pendingin180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 180 days" && ratings.Contains(t.Rating)),
-            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && ratings.Contains(t.Rating))
+            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && ratings.Contains(t.Rating)),
+            ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
         };
         private AuditReportSummary GetAuditReportSummaryWithRating(IEnumerable<TacReview> tacReviews, string prefix, IdType idType, string rating) => new AuditReportSummary
         {
@@ -116,7 +122,8 @@ namespace RiskApplication.Controllers
             Pendingin120Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 120 days" && t.Rating == rating),
             Pendingin150Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 150 days" && t.Rating == rating),
             Pendingin180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 180 days" && t.Rating == rating),
-            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && t.Rating == rating)
+            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && t.Rating == rating),
+            ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
         };
 
         private AuditReportSummary GetExpiredRiskMetrics(IEnumerable<TacReview> tacReviews, string prefix, IdType idType, string rating)
