@@ -10,6 +10,7 @@ import { IdType } from './IdType';
 })
 export class TacReviewComponent implements OnInit {
     public auditReportSummary: AuditReportSummary[];
+    public auditReportSummaryItem: AuditReportSummary;
     constructor(http: Http, @Inject('BASE_URL') baseUrl: string, private sanitizer: DomSanitizer) {
         http.get(baseUrl + 'api/riskapplication/GetAuditReportSummary').subscribe(result => {
             this.auditReportSummary = result.json() as AuditReportSummary[];
@@ -32,9 +33,12 @@ export class TacReviewComponent implements OnInit {
         //}
         return this.sanitizer.bypassSecurityTrustStyle(result);
     }
+    public open(event: any, item: AuditReportSummary) {
+        this.auditReportSummaryItem = item;
+    }
 }
 
-interface TacReview {
+export interface TacReview {
     Division: string;
     SuperDept: string;
     Department: string;

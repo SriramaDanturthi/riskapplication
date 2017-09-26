@@ -32,11 +32,25 @@ namespace RiskApplication.Controllers
                 GetAuditReportSummary(reviews,"Audit Action Plan ",IdType.AuditActions),
                 GetAuditReportSummaryWithRatings(reviews,"Action Plan ",  IdType.CriticalHighIssues,new []{ "Critical","High" }),
                 GetAuditReportSummaryWithRatings(reviews,"Action Plan ",  IdType.ModerateLowIssues,new []{ "Low","Moderate","" }),
-                GetExpiredRiskMetrics(reviews,"Risk ",IdType.HighRisks,"High"),
-                GetExpiredRiskMetrics(reviews,"Risk ",IdType.ModerateRisks,"Moderate"),
-                GetExpiredRiskMetrics(reviews,"Risk ",IdType.LowRisks,"Low")
+                GetExpiredRiskMetrics(reviews,"Risk ", IdType.HighRisks,"High"),
+                GetExpiredRiskMetrics(reviews,"Risk ", IdType.ModerateRisks,"Moderate"),
+                GetExpiredRiskMetrics(reviews,"Risk ", IdType.LowRisks,"Low"),
+                GetCloseIncidentSummaryWithRatings(reviews, IdType.SevereIncidents,new []{ "Severe" }),
+                GetCloseIncidentSummaryWithRatings(reviews, IdType.MajorIncidents,new []{ "Major" }),
+                GetCloseIncidentSummaryWithRatings(reviews, IdType.MinorIncidents,new []{ "Minor" }),
+                GetCloseIncidentSummaryWithRatings(reviews, IdType.NoImpactIncidents,new []{ "None" })
             };
             return list;
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<TacReview> GetAuditReportDetails(string metric, string rating)
+        {
+            var data = System.IO.File.ReadAllText("Data/tac-review.json");
+            var reviews = JsonConvert.DeserializeObject<TacReview[]>(data);
+            if (!string.IsNullOrEmpty(rating))
+                return reviews.Where(t => t.Metric == metric && t.Rating.Contains(rating));
+            return reviews.Where(t => t.Metric == metric);
         }
 
         private AuditReportSummary GetAuditReportSummaryExpiring(IEnumerable<TacReview> tacReviews, string prefix, IdType idType) => new AuditReportSummary
@@ -109,6 +123,20 @@ namespace RiskApplication.Controllers
             Pendingin180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in next 180 days" && ratings.Contains(t.Rating)),
             PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == prefix + "expiring in more than 180 days" && ratings.Contains(t.Rating)),
             ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
+        };
+        private AuditReportSummary GetCloseIncidentSummaryWithRatings(IEnumerable<TacReview> tacReviews, IdType idType, IEnumerable<string> ratings) => new AuditReportSummary
+        {
+            Type = idType,
+            Expired = tacReviews.Count(t => t.Metric == "Closed incident" && ratings.Contains(t.Rating)),
+            Pendingin7Days = tacReviews.Count(t => t.Metric == "Incident pending 7 days or less" && ratings.Contains(t.Rating)),
+            Pendingin30Days = tacReviews.Count(t => t.Metric == "Incident pending 30 days or less" && ratings.Contains(t.Rating)),
+            Pendingin60Days = tacReviews.Count(t => t.Metric == "Incident pending 60 days or less" && ratings.Contains(t.Rating)),
+            Pendingin90Days = tacReviews.Count(t => t.Metric == "Incident pending 90 days or less" && ratings.Contains(t.Rating)),
+            Pendingin120Days = tacReviews.Count(t => t.Metric == "Incident pending 120 days or less" && ratings.Contains(t.Rating)),
+            Pendingin150Days = tacReviews.Count(t => t.Metric == "Incident pending 150 days or less" && ratings.Contains(t.Rating)),
+            Pendingin180Days = tacReviews.Count(t => t.Metric == "Incident pending 180 days or less" && ratings.Contains(t.Rating)),
+            PendinginMoreThan180Days = tacReviews.Count(t => t.Metric == "Incident pending more than 180 days" && ratings.Contains(t.Rating)),
+            //ReviewList = tacReviews.Where(t => t.Metric.StartsWith(prefix))
         };
         private AuditReportSummary GetAuditReportSummaryWithRating(IEnumerable<TacReview> tacReviews, string prefix, IdType idType, string rating) => new AuditReportSummary
         {
